@@ -2,7 +2,7 @@ import MyPosts from './MyPosts/MyPosts';
 import s from './Profile.module.css';
 
 const Profile = () => {
-    return <div className={s.content}>
+    return <div>
         <div>
             <img src="http://www.passagemepassaporte.com/wp-content/uploads/2016/02/jamaica-3.jpg" alt='картинка' />
         </div>
