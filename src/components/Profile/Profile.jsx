@@ -1,16 +1,14 @@
 import MyPosts from './MyPosts/MyPosts';
 import s from './Profile.module.css';
+import ProfileInfo from './ProfileInfo/ProfileInfo';
 
 const Profile = () => {
-    return <div>
-        <div>
-            <img src="http://www.passagemepassaporte.com/wp-content/uploads/2016/02/jamaica-3.jpg" alt='картинка' />
-        </div>
-        <div>
-            ava + description
-        </div>
+    return (
+    <div>
+        <ProfileInfo />
         <MyPosts />
     </div>
+    )
 }
 
 export default Profile;
