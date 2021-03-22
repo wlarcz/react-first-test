@@ -1,5 +1,6 @@
 import Preloader from '../../common/Preloader/Preloader';
 import s from './ProfileInfo.module.css';
+import ProfileStatus from './ProfileStatus';
 
 const ProfileInfo = (props) => {
     if (!props.profile) {
@@ -7,12 +8,12 @@ const ProfileInfo = (props) => {
     }
     return (
         <div>
-            <div className={ s.mainImage }>
+            {/* <div className={ s.mainImage }>
                 <img src="http://www.passagemepassaporte.com/wp-content/uploads/2016/02/jamaica-3.jpg" alt='картинка' />
-            </div>
+            </div> */}
             <div className={s.descriptionBlock}>
                 <img src={props.profile.photos.large} />
-                ava + description
+                <ProfileStatus status={ 'Hi, all nigers' } />
             </div>
         </div>
     )
