@@ -29,6 +29,15 @@ class ProfileStatus extends React.Component {
         })
     }
 
+    componentDidUpdate(prevProps, prevState) {
+        if (prevProps.status !== this.props.status) {
+            this.setState({
+                status: this.props.status
+            })
+        }
+        console.log('updutka');
+    }
+
     render() {
         return (
             <>
@@ -43,6 +52,7 @@ class ProfileStatus extends React.Component {
                         <input onChange={ this.onStatusChange } autoFocus={true} onBlur={ this.deactivateEditMode } value={this.state.status} />
                     </div>
                 }
+                
             </>
         )
     }
