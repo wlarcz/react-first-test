@@ -1,5 +1,6 @@
-import { Formik, useFormik } from 'formik';
+import { Formik, Form, Field, ErrorMessage } from 'formik';
 import s from './Login.module.css';
+import * as Yup from 'yup';
 
 const initialValues = {
     login: '',
@@ -11,63 +12,47 @@ const onSubmit = values => {
     console.log('Form data', values)
 }
 
-const validate = values => {
-    let errors = {}
-
-    if (!values.login) {
-        errors.login = 'Required'
-    }
-
-    if (!values.password) {
-        errors.password = 'Required'
-    }
-
-    return errors
-}
+const validationSchema = Yup.object({
+    login: Yup.string().required('Обизатильна!'),
+    password: Yup.string().required('Важно!')
+})
 
 const LoginForm = (props) => {
-    
-    const formik = useFormik({
-        initialValues,
-        onSubmit,
-        validate
-    })
 
-    console.log('Visited fields', formik.touched);
+
+    // console.log('Visited fields', formik.touched);
 
     return (
-        <form onSubmit={formik.handleSubmit} >
-            <div className={s.formControl} >
-                <input
-                placeholder={'Login'}
-                name={'login'} 
-                onChange={formik.handleChange} 
-                onBlur={formik.handleBlur}
-                value={formik.values.login}
-                 />
-                 { formik.touched.login && formik.errors.login ? <div className={ s.error } >{ formik.errors.login }</div> : null }
+        <Formik
+        initialValues={ initialValues }
+        validationSchema={ validationSchema }
+        onSubmit={ onSubmit }>
+            <Form>
+                <div className={s.formControl} >
+                    <Field
+                        placeholder={'Login'}
+                        name={'login'}
+                    />
+                    <ErrorMessage name='login' />
+                </div>
+                <div className={s.formControl} >
+                    <Field
+                        placeholder={'Password'}
+                        name={'password'}
+                        type={'password'}
+                    />
+                    <ErrorMessage name='password' />
+                </div>
+                <div>
+                    <Field type={'checkbox'}
+                        name={'rememberMe'}
+                    /> remember me
             </div>
-            <div className={s.formControl} >
-                <input 
-                placeholder={'Password'} 
-                name={'password'}
-                type={'password'} 
-                onChange={formik.handleChange} 
-                onBlur={formik.handleBlur}
-                value={formik.values.password} 
-                />
-                { formik.touched.password && formik.errors.password ? <div className={ s.error } >{ formik.errors.password }</div> : null }
-            </div>
-            <div>
-                <input type={'checkbox'}
-                name={'rememberMe'}
-                value={formik.values.rememberMe} 
-                /> remember me
-            </div>
-            <div>
-                <button type={'submit'} >Login</button>
-            </div>
-        </form>
+                <div>
+                    <button type={'submit'} >Login</button>
+                </div>
+            </Form>
+        </Formik>
     )
 }
 
