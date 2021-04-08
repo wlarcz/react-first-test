@@ -58,10 +58,10 @@ const Dialogs = (props) => {
 
 const AddMessageForm = (props) => {
     const initialValues = {
-        newMessageBody: ''
+        messageText: ''
     }
     const onSubmit = (values) => {
-        alert(values.newMessageBody)
+        console.log(values)
     }
     return (
         <Formik
@@ -71,9 +71,8 @@ const AddMessageForm = (props) => {
             <Form>
                 <Field
                     type='text'
-                    name='newMessageBody'
+                    name='messageText'
                     id='message'
-                    placeholder='введи мессагу'
                 />
                 <button type="submit"> Отправить </button>
             </Form>
@@ -90,6 +89,7 @@ const AddMessageForm = (props) => {
     //     <button onClick={props.onSendMessageClick} > Отправить </button>
     // </div>
     // </div>
+
 }
 
 export default Dialogs;
