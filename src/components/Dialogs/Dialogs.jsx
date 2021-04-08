@@ -13,15 +13,10 @@ const Dialogs = (props) => {
     let dialogsElements = state.dialogs.map(d => <DialogItem name={d.name} key={d.id} id={d.id} />)
     let messagesElements = state.messages.map(m => <Message message={m.message} key={m.id} />)
     let newMessageBody = state.newMessageBody;
-
     let newMessageElement = React.createRef();
 
-    let onSendMessageClick = () => {
-        props.sendMessage();
-    }
-    let onNewMessageChange = (e) => {
-        let body = e.target.value;
-        props.updateNewMessageBody(body);
+    const addNewMessage = (values) => {
+        props.sendMessage(values.newMessageBody);
     }
 
     if (!props.isAuth) return <Redirect to={'/login'} />
@@ -35,6 +30,7 @@ const Dialogs = (props) => {
             <div className={s.messages}>
                 {messagesElements}
                 <AddMessageForm
+                onSubmit={ addNewMessage }
                 // onChange={onNewMessageChange}
                 //     ref={newMessageElement}
                 //     value={newMessageBody}
@@ -60,13 +56,13 @@ const AddMessageForm = (props) => {
     const initialValues = {
         newMessageBody: ''
     }
-    const onSubmit = (values) => {
-        alert(values.newMessageBody)
-    }
+    // const onSubmit = (values) => {
+    //     alert(values.newMessageBody)
+    // }
     return (
         <Formik
         initialValues={ initialValues }
-        onSubmit={ onSubmit }
+        onSubmit={ props.onSubmit }
         >
             <Form>
                 <Field
