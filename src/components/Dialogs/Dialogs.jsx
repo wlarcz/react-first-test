@@ -31,22 +31,7 @@ const Dialogs = (props) => {
                 {messagesElements}
                 <AddMessageForm
                 onSubmit={ addNewMessage }
-                // onChange={onNewMessageChange}
-                //     ref={newMessageElement}
-                //     value={newMessageBody}
-                //     sendMessageClick={onSendMessageClick}
                 />
-                {/* <div>
-                    <div>
-                        <textarea placeholder='Введи сюда сообщение'
-                        onChange={ onNewMessageChange }
-                        ref={ newMessageElement }
-                        value={ newMessageBody } ></textarea>
-                    </div>
-                    <div>
-                        <button onClick={ onSendMessageClick } > Отправить </button>
-                    </div>
-                </div> */}
             </div>
         </div>
     )
@@ -56,9 +41,6 @@ const AddMessageForm = (props) => {
     const initialValues = {
         newMessageBody: ''
     }
-    // const onSubmit = (values) => {
-    //     alert(values.newMessageBody)
-    // }
     return (
         <Formik
         initialValues={ initialValues }
@@ -75,17 +57,6 @@ const AddMessageForm = (props) => {
             </Form>
         </Formik>
     )
-    // // <div>
-    // <div>
-    //              <textarea placeholder='Введи сюда сообщение'
-    //             onChange={props.onNewMessageChange}
-    //             ref={props.newMessageElement}
-    //             value={props.newMessageBody} ></textarea>
-    //     </div>
-    // <div>
-    //     <button onClick={props.onSendMessageClick} > Отправить </button>
-    // </div>
-    // </div>
 }
 
 export default Dialogs;
