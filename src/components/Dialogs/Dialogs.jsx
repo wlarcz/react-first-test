@@ -1,9 +1,11 @@
 import { NavLink, Redirect } from 'react-router-dom';
 import DialogItem from './DialogItem/DialogItem';
 import s from './Dialogs.module.css';
+import x from '../Login/Login.module.css';
 import Message from './Message/Message';
 import React, { Component } from 'react';
-import { Formik, Form, Field } from 'formik';
+import { Formik, Form, Field, ErrorMessage } from 'formik';
+import * as Yup from 'yup';
 import { updateNewMessageBodyCreator, sendMessageCreator } from '../../redux/dialogs-reducer';
 
 const Dialogs = (props) => {
@@ -41,10 +43,14 @@ const AddMessageForm = (props) => {
     const initialValues = {
         newMessageBody: ''
     }
+    const validationSchema = Yup.object({
+        newMessageBody: Yup.string().required('Введи сообщение')
+    })
     return (
         <Formik
         initialValues={ initialValues }
         onSubmit={ props.onSubmit }
+        validationSchema = { validationSchema }
         >
             <Form>
                 <Field
@@ -53,6 +59,9 @@ const AddMessageForm = (props) => {
                     id='message'
                     placeholder='введи мессагу'
                 />
+                <ErrorMessage name='newMessageBody'>
+                    { errorMsg => <div className={x.error}>{ errorMsg }</div> }
+                </ErrorMessage>
                 <button type="submit"> Отправить </button>
             </Form>
         </Formik>

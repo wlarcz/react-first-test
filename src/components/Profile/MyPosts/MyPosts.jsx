@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import s from './MyPosts.module.css';
+import x from '../../Login/Login.module.css';
 import Post from './Post/Post';
-import { Formik, Form, Field } from 'formik';
+import { Formik, Form, Field, ErrorMessage } from 'formik';
+import * as Yup from 'yup';
 
 const MyPosts = (props) => {
     let postsElements = props.posts.map(p => <Post message={p.message} likesCount={p.likesCount} />);
@@ -27,10 +29,14 @@ const AddNewPostForm = (props) => {
     const initialValues = {
         newPostText: ''
     }
+    const validationSchema = Yup.object({
+        newPostText: Yup.string().required('Введи сообщение!')
+    })
     return (
         <Formik
             initialValues={initialValues}
             onSubmit={props.onSubmit}
+            validationSchema={validationSchema}
         >
             <Form>
                 <Field
@@ -39,7 +45,12 @@ const AddNewPostForm = (props) => {
                     id='message'
                     placeholder='введи мессагу'
                 />
-                <button type="submit">Add post</button>
+                <ErrorMessage name='newPostText'>
+                    {errorMsg => <div className={x.error}>{errorMsg}</div>}
+                </ErrorMessage>
+                <div>
+                    <button type="submit">Add post</button>
+                </div>
             </Form>
         </Formik>
     )
