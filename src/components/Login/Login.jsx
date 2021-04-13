@@ -2,6 +2,9 @@ import React from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import s from './Login.module.css';
 import * as Yup from 'yup';
+import { connect } from 'react-redux';
+import { login } from '../../redux/auth-reducer';
+import { Redirect } from 'react-router';
 
 const TextError = (props) => {
     return (
@@ -109,17 +112,21 @@ const LoginForm = (props) => {
 }
 
 const Login = (props) => {
-    const onSubmit = (values, { setSubmitting }) => {
-        setTimeout(() => {
-          alert(JSON.stringify(values, null, 2));
-          setSubmitting(false);
-        }, 400);
+    const onSubmit = (values) => {
+        props.login(values.email, values.password, values.rememberMe);
       }
 
+    if (props.isAuth) {
+        return <Redirect to={'/profile'} />
+    }
     return <div>
         <h1>Login</h1>
         <LoginForm onSubmit={ onSubmit } />
     </div>
 }
 
-export default Login;
+const mapStateToProps = (state) => ({
+    isAuth: state.auth.isAuth
+})
+
+export default connect(mapStateToProps , { login }) (Login);
