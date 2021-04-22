@@ -61,24 +61,14 @@ const LoginForm = (props) => {
         rememberMe: false
     }
 
-    // const checkboxOption = {
-    //     key: 'Option 1',
-    //     value: 'rOption 1'
-    // }
     const validationSchema = Yup.object({
         email: Yup.string().email('Invalid email format').required('Обязательно'),
         password: Yup.string().required('Обязательно')
     })
 
-    // const onSubmit = values => {
-    //     console.log('Form data', values);
+    // const onSubmit = (values, {setStatus}) => {
+    //     props.login(values.email, values.password, values.rememberMe, setStatus);
     // }
-    // const onSubmit = (values, { setSubmitting }) => {
-    //     setTimeout(() => {
-    //       alert(JSON.stringify(values, null, 2));
-    //       setSubmitting(false);
-    //     }, 400);
-    //   }
 
     return (
         <Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={props.onSubmit}>
@@ -96,14 +86,19 @@ const LoginForm = (props) => {
                             type='password'
                             label='Password'
                             name='password' />
-                        
+
                         <FormikControl
                             control='checkbox'
                             type='checkbox'
                             label='Remember me'
                             name='rememberMe' />
 
+
+                        {formik.status && formik.status.message && (
+                            <div className={s.error}>{formik.status.message}</div>
+                        )}
                         <button type='submit' disabled={!formik.isValid} >Submit</button>
+
                     </Form>
                 }
             }
@@ -112,16 +107,17 @@ const LoginForm = (props) => {
 }
 
 const Login = (props) => {
-    const onSubmit = (values) => {
-        props.login(values.email, values.password, values.rememberMe);
-      }
+    const onSubmit = (values, actions) => {
+        props.login(values.email, values.password, values.rememberMe, actions);
+    }
 
     if (props.isAuth) {
         return <Redirect to={'/profile'} />
     }
     return <div>
         <h1>Login</h1>
-        <LoginForm onSubmit={ onSubmit } />
+        <LoginForm onSubmit={onSubmit} />
+        {/* <LoginForm login={ login }/> */}
     </div>
 }
 
@@ -129,4 +125,4 @@ const mapStateToProps = (state) => ({
     isAuth: state.auth.isAuth
 })
 
-export default connect(mapStateToProps , { login }) (Login);
+export default connect(mapStateToProps, { login })(Login);

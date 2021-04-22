@@ -9,7 +9,6 @@ let initialState = {
     isAuth: false
 }
 
-
 const authReducer = (state = initialState, action) => {
     switch (action.type) {
         case SET_USER_DATA:
@@ -34,11 +33,15 @@ export const getAuthUserData = () => (dispatch) => {
     })
 }
 
-export const login = (email, password, rememberMe) => (dispatch) => {
-    authAPI.login(email, password, rememberMe)
+export const login = (email, password, rememberMe, actions) => (dispatch) => {
+    authAPI.login(email, password, rememberMe, actions)
         .then(response => {
             if (response.data.resultCode === 0) {
                 dispatch(getAuthUserData());
+            } else {
+                actions.setSubmitting(false);
+                let message = response.data.messages.length > 0 ? response.data.messages[0] : 'some error';
+                actions.setStatus({message});
             }
         })
 }
