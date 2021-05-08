@@ -1,11 +1,12 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import s from './MyPosts.module.css';
 import x from '../../Login/Login.module.css';
 import Post from './Post/Post';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 
-const MyPosts = (props) => {
+const MyPosts = React.memo((props) => {
+    console.log('render yo');
     let postsElements = props.posts.map(p => <Post message={p.message} likesCount={p.likesCount} />);
 
     let newPostElement = React.createRef();
@@ -23,7 +24,8 @@ const MyPosts = (props) => {
             </div>
         </div>
     )
-}
+
+})
 
 const AddNewPostForm = (props) => {
     const initialValues = {
