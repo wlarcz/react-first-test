@@ -6,8 +6,7 @@ import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 
 const MyPosts = React.memo((props) => {
-    console.log('render yo');
-    let postsElements = props.posts.map(p => <Post message={p.message} likesCount={p.likesCount} />);
+    let postsElements = [...props.posts].reverse().map(p => <Post message={p.message} likesCount={p.likesCount} />);
 
     let newPostElement = React.createRef();
 
