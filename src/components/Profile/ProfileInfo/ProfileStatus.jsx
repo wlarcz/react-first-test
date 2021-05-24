@@ -1,7 +1,4 @@
 import React from 'react';
-import { updateStatus } from '../../../redux/profile-reducer';
-import Preloader from '../../common/Preloader/Preloader';
-import s from './ProfileInfo.module.css';
 
 class ProfileStatus extends React.Component {
     state = {
@@ -19,7 +16,6 @@ class ProfileStatus extends React.Component {
         this.setState({
             editMode: false
         });
-        // this.props.updateStatus(this.state.status);
         this.props.updateStatus(this.state.status);
     }
 
@@ -43,16 +39,15 @@ class ProfileStatus extends React.Component {
             <>
                 {!this.state.editMode &&
                     <div>
-                        {/* <span onDoubleClick={this.activateEditMode.bind(this)} >{this.props.status}</span> */}
                         <span onDoubleClick={this.activateEditMode} >{this.props.status || '--------'}</span>
                     </div>
                 }
                 {this.state.editMode &&
                     <div>
-                        <input onChange={ this.onStatusChange } autoFocus={true} onBlur={ this.deactivateEditMode } value={this.state.status} />
+                        <input onChange={this.onStatusChange} autoFocus={true} onBlur={this.deactivateEditMode} value={this.state.status} />
                     </div>
                 }
-                
+
             </>
         )
     }
