@@ -1,6 +1,5 @@
 import { NavLink } from 'react-router-dom';
 import userPhoto from '../../assets/images/user.jpg';
-import Paginator from '../common/Paginator/Paginator';
 import styles from './users.module.css';
 
 let User = ({user, followingInProgress, unfollow, follow}) => {
